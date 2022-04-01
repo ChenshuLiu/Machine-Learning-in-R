@@ -50,9 +50,17 @@ rmse
 ```
 
 \section{Logistic Regression}
-Logistic regression is a \textbf{classification algorithm}, not a linear prediction algorithm
+Logistic regression is a \textbf{classification algorithm}, not a linear prediction algorithm. Different from linear regression, which is usually used to determine the magnitude of the effect, logistic regression is used to predict binary outcome.
 \subsection{Data}
 ```{r}
-# random test again!!
+#install.packages("catdata")
+library(catdata)
+add <- data("addiction")
+library(datasets)
+#install.packages("mlbench")
+library(mlbench)
+data(PimaIndiansDiabetes)
+df <- PimaIndiansDiabetes
+head(df)
 ```
 
