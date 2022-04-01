@@ -53,6 +53,6 @@ rmse
 Logistic regression is a \textbf{classification algorithm}, not a linear prediction algorithm
 \subsection{Data}
 ```{r}
-# random test again
+# random test again!!
 ```
 
