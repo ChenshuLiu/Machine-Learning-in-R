@@ -11,6 +11,10 @@ output:
 ```{r}
 # for data splitting into training and testing
 library(caTools)
+
+# dataset for logistic regression
+# install.packages("mlbench")
+library(mlbench)
 ```
 
 \section{Linear Regression}
@@ -53,14 +57,44 @@ rmse
 Logistic regression is a \textbf{classification algorithm}, not a linear prediction algorithm. Different from linear regression, which is usually used to determine the magnitude of the effect, logistic regression is used to predict binary outcome.
 \subsection{Data}
 ```{r}
-#install.packages("catdata")
-library(catdata)
-add <- data("addiction")
-library(datasets)
-#install.packages("mlbench")
-library(mlbench)
 data(PimaIndiansDiabetes)
-df <- PimaIndiansDiabetes
-head(df)
+log_df <- PimaIndiansDiabetes
+head(log_df)
+
+# splitting data
+split <- caTools::sample.split(log_df$diabetes, SplitRatio = 0.7)
+train <- log_df[split, ]
+test <- log_df[!split, ]
+
+# data pre-processing
+# logistic regression takes in factor type variables
+train$diabetes <- as.factor(train$diabetes)
 ```
+
+\subsection{Modeling}
+```{r}
+log_mod <- glm(diabetes ~., data = train, family = "binomial")
+summary(log_mod)
+```
+
+\subsection{Prediction}
+```{r}
+pred <- predict(log_mod, test, type = "response")
+
+# confusion matrix to check prediction accuracy
+table(Actual_value = test$diabetes, Predicted_value = pred > 0.5)
+```
+
+\section{Decision Tree}
+\begin{enumerate}
+  \item Decision tree is a tree shape algorithm that is used to determine a course of actions, with each branch on the tree representing a possible decision
+  \item Decision tree can be used to solve classification problems
+  \item Decision tree can also be used to solve continuous predictions such as regression
+\end{enumerate}
+Entropy describes the messiness of the problem being classified. The messier the problem is, the larger the entropy. In decision tree problems, we can use the change in entropy to determine what the decision node is. \textbf{The optimum decision node is where the information gain is the largest (i.e. reduces the most entropy)}.
+
+The entropy of decision problem can be calculated as:
+$$-\Sigma_{x=1}^{i}p(value_x)log_2(p(value_x))$$
+Where value is the proportion of occurrence of one group $\frac{counts\ \ in\ \ one\ \ group}{total\ \ counts}$
+
 
