@@ -1,0 +1,58 @@
+---
+title: "Machine Learning in R"
+author: "Chenshu Liu"
+date: "April 2022"
+output:
+  pdf_document: default
+  html_document: default
+---
+
+\section{Packages}
+```{r}
+# for data splitting into training and testing
+library(caTools)
+```
+
+\section{Linear Regression}
+Linear regression is a way to find the best fit linear expression that can show the observed trend(s). The parameters of the best fit line $y = mx + c$ can be calculated by:
+$$m = \frac{(n\times \Sigma(x\times y)) - (\Sigma(x)\times \Sigma(y))}{(n\times \Sigma(x^2)) - (\Sigma(x)^2)}$$
+$$c = \frac{(\Sigma(y)\times \Sigma(x^2)) - (\Sigma(x)\times \Sigma(x\times y))}{(n\times \Sigma(x^2)) - (\Sigma(x)^2)}$$
+
+\subsection{Data}
+```{r, message = FALSE}
+sales <- read.csv("/Users/chenshu/Documents/Programming/R/Machine Learning in R/datasets/revenue.csv")
+
+# split into training and testing data
+set.seed(2)
+# SplitRatio means the percentage of data for training
+split <- caTools::sample.split(sales$Profit, SplitRatio = 0.7)
+train <- sales[split, ]
+test <- sales[!split, ]
+```
+
+\subsection{Modeling}
+```{r}
+Model <- lm(Profit ~., data = train)
+summary(Model)
+```
+
+\subsection{Predict}
+```{r}
+pred <- predict(Model, test)
+
+# comparing predicted vs. actual values
+plot(test$Profit, type = 'l', lty = 1.8, col = "red")
+lines(pred, type = 'l', lty = 1.8, col = "blue")
+
+# determining prediction accuracy
+rmse <- sqrt(mean(pred - test$Profit)^2)
+rmse
+```
+
+\section{Logistic Regression}
+Logistic regression is a \textbf{classification algorithm}, not a linear prediction algorithm
+\subsection{Data}
+```{r}
+
+```
+
