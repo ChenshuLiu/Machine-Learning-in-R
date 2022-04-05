@@ -122,7 +122,9 @@ Whichever category can reduce the entropy the greatest will be the node for clas
 path <- 'https://raw.githubusercontent.com/guru99-edu/R-Programming/master/titanic_data.csv'
 titanic <-read.csv(path)
 
-# 
+# data cleaning
+titanic <- select(titanic, survived, pclass, sex, age)
+titanic <- mutate(titanic, survived = factor(survived), age = as.numeric(age))
 ```
 
 \subsection{Modeling}
