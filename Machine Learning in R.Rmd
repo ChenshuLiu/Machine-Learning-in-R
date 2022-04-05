@@ -7,14 +7,32 @@ output:
   html_document: default
 ---
 
-\section{Packages}
+\section{Packages, message = F}
 ```{r}
-# for data splitting into training and testing
+# for data splitting into training and testing (general data manipulation)
 library(caTools)
 
 # dataset for logistic regression
 # install.packages("mlbench")
 library(mlbench)
+
+# Decision tree
+# install.packages("FSelector")
+# install.packages("caret", dependencies = T)
+# install.packages("rpart.plot")
+# install.packages("data.tree")
+# install.packages("rJava")
+
+# for constructing decision tree
+system("java -version")
+library(FSelector)
+library(rpart)
+# for test train set split
+library(caret)
+library(dplyr)
+# plotting the decision tree
+library(rpart.plot)
+library(data.tree)
 ```
 
 \section{Linear Regression}
@@ -95,6 +113,21 @@ Entropy describes the messiness of the problem being classified. The messier the
 
 The entropy of decision problem can be calculated as:
 $$-\Sigma_{x=1}^{i}p(value_x)log_2(p(value_x))$$
-Where value is the proportion of occurrence of one group $\frac{counts\ \ in\ \ one\ \ group}{total\ \ counts}$
+Where value is the proportion of occurrence of one group $value_x = \frac{counts\ \ in\ \ one\ \ group}{total\ \ counts}$
 
+Whichever category can reduce the entropy the greatest will be the node for classification.
 
+\subsection{Data}
+```{r}
+path <- 'https://raw.githubusercontent.com/guru99-edu/R-Programming/master/titanic_data.csv'
+titanic <-read.csv(path)
+
+# 
+```
+
+\subsection{Modeling}
+```{r}
+
+```
+
+\subsection{Prediction}
