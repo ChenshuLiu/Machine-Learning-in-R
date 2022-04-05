@@ -7,8 +7,8 @@ output:
   html_document: default
 ---
 
-\section{Packages, message = F}
-```{r}
+\section{Packages}
+```{r, message = F}
 # for data splitting into training and testing (general data manipulation)
 library(caTools)
 
@@ -125,11 +125,26 @@ titanic <-read.csv(path)
 # data cleaning
 titanic <- select(titanic, survived, pclass, sex, age)
 titanic <- mutate(titanic, survived = factor(survived), age = as.numeric(age))
+
+# data splitting
+set.seed(123)
+sample = sample.split(titanic$survived, SplitRatio = 0.7)
+train <- titanic[sample, ]
+test <- titanic[!sample, ]
 ```
 
 \subsection{Modeling}
 ```{r}
-
+tree <- rpart(survived ~., data = train)
 ```
 
 \subsection{Prediction}
+```{r}
+tree.survived.pred <- predict(tree, test, type = "class")
+
+# evaluate model accuracy
+confusionMatrix(tree.survived.pred, test$survived)
+
+# visualize decision tree
+prp(tree)
+```
