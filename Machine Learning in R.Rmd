@@ -40,6 +40,9 @@ library(data.tree)
 # Random forest
 # install.packages("randomForest")
 library(randomForest)
+
+# Support Vector Machine
+library(e1071)
 ```
 
 \newpage
@@ -201,6 +204,42 @@ plot(result)
 sum(result[, 1] == result[, 2])/nrow(result)
 ```
 
+\section{Support Vector Machine}
+Support vector machine is a binary classification technique. SVM may be a better classification method than logistic regression when the number of variables is large. SVM is achieved by finding the best separating boundary line by computing the maximum distance margin ($D^- + D^+$) from equidistant support vectors (i.e. finding points from both groups that are close to each other as support vectors to support the algorithm). The resulting dividing line is called a hyperplane
+
+SVM kernel function will be used when the current dimension does not support linearly separable data points. The kernel function will increase the dimension to where there is possible linear separation
+
+\subsection{Data}
+```{r}
+data(PimaIndiansDiabetes)
+df <- PimaIndiansDiabetes
+# for the sake of demonstration, we will use 2 variables (i.e. 2D space)
+df <- df[, c("glucose", "insulin", "diabetes")]
+
+# splitting data
+split <- caTools::sample.split(df$diabetes, SplitRatio = 0.7)
+train <- df[split, ]
+test <- df[!split, ]
+head(train)
+
+# data pre-processing
+train$diabetes <- as.character(train$diabetes)
+train$diabetes <- ifelse(train$diabetes == "pos", +1, -1)
+head(train)
+```
+
+\subsection{Modeling}
+```{r}
+# plotting data
+plot()
+
+# finding best linear boundary through SVM
+svm.model <- svm(diabetes ~., data = train,
+                 type = "classification", kernel = "linear",
+                 scale = FALSE)
+
+# over-plotting hyperplane
+```
 
 
 
