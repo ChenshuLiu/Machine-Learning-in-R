@@ -230,16 +230,28 @@ head(train)
 
 \subsection{Modeling}
 ```{r}
-# plotting data
-plot()
-
 # finding best linear boundary through SVM
 svm.model <- svm(diabetes ~., data = train,
-                 type = "classification", kernel = "linear",
+                 type = "C-classification", kernel = "linear",
                  scale = FALSE)
-
-# over-plotting hyperplane
+summary(svm.model)
 ```
 
+\subsection{Prediction}
+```{r}
+pred <- predict(svm.model, test)
+test$diabetes <- ifelse(test$diabetes == "pos", +1, -1)
+table(Actual_value = test$diabetes, Predicted_value = pred)
+```
 
+\section{Clustering}
+Hierarchical clustering stops when the grouping result in just one group. Agglomerative clustering is a botton-up approach, and divisive approach is a top-down approach. Hierarchical clustering works through finding the closest (pair with the least distance separation) pair of points and grouping them together (forming the dendogram).
+
+There are different ways of determining the distance between points:
+\begin{enumerate}
+  \item Euclidean distance measure: $d = \sqrt{\Sigma_{i=1}^n(q_i-p_i)^2}$
+  \item Squared euclidean distance measure: $d = \Sigma_{i=1}^n(q_i-p_i)^2$
+  \item Manhattan distance measure (sum of the horizontal and vertical components between the two points): $d = \Sigma_{i=1}^n |q_x-p_x| + |q_y - p_y|$ a a a
+  \item Cosine distance measure
+\end{enumerate}
 
