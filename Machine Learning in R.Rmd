@@ -204,6 +204,7 @@ plot(result)
 sum(result[, 1] == result[, 2])/nrow(result)
 ```
 
+\newpage
 \section{Support Vector Machine}
 Support vector machine is a binary classification technique. SVM may be a better classification method than logistic regression when the number of variables is large. SVM is achieved by finding the best separating boundary line by computing the maximum distance margin ($D^- + D^+$) from equidistant support vectors (i.e. finding points from both groups that are close to each other as support vectors to support the algorithm). The resulting dividing line is called a hyperplane
 
@@ -244,6 +245,7 @@ test$diabetes <- ifelse(test$diabetes == "pos", +1, -1)
 table(Actual_value = test$diabetes, Predicted_value = pred)
 ```
 
+\newpage
 \section{Clustering}
 Hierarchical clustering stops when the grouping result in just one group. Agglomerative clustering is a botton-up approach (Agglomerative clustering begins with each element as a single cluster and gradually grouping them into larger clusters), and Divisive approach is a top-down approach (take an entity of elements in one whole cluster and randomly divide them into two clusters, then calculate cluster sum of squares using $B_{j12} = n_1(\bar{x}_{j1} - \bar{x}_j)^2 + n_2(\bar{x}_{j2} - \bar{x}_j)^2$ where $B_j$ is the distance between the two clusters, $x_{j1} \& x_{j2}$ are the mean of the clusters, n is the number of elements in each cluster, $x_j$ is the grand mean. Which ever separation creates the largest sum of squares will be kept, then repeat the process entire reach desired number of clusters). Hierarchical clustering works through finding the closest (pair with the least distance separation) pair of points and grouping them together (forming the dendogram).
 
