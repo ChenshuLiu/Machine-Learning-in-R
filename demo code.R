@@ -27,7 +27,9 @@ test <- log_df[!split, ]
 
 # Data pre-processing - logistic regression takes in factor type variables
 train$diabetes <- as.factor(train$diabetes)
+# Logistic model construction
 log_model <- glm(diabetes ~., data = train, family = "binomial")
+# Prediction from logistic regression model on testing set
 prediction_test <- predict(log_model, test, type = "response")
 # confusion matrix to check prediction accuracy
 table(Actual_value = test$diabetes, Predicted_value = pred > 0.5)
